@@ -10,7 +10,10 @@ def sent_detector():
     emotion_strings =[f"'{emotion}': {value}" for emotion, value in response.items() if emotion != "dominant_emotion"]
     emotion_list = ", ".join(emotion_strings)
     dominant_emotion = response["dominant_emotion"]
-    result = (f"For the given statement, the system response is {emotion_list}. " f"The dominant emotion is <strong>{dominant_emotion}</strong>")
+    if dominant_emotion is None:
+        result = "Invalid text! Please try again!"
+    else:
+        result = (f"For the given statement, the system response is {emotion_list}. " f"The dominant emotion is <strong>{dominant_emotion}</strong>")
     return result
 
 @app.route("/")
